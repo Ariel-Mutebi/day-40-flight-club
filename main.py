@@ -1,0 +1,43 @@
+import time
+from datetime import datetime, timedelta
+from data_manager import DataManager
+from retrievers import retrieve_cheapest_flight, retrieve_flight_list
+from flight_searcher import FlightSearcher
+from notifier import Notifier
+
+ORIGIN_CITY_CODE = "LON"
+
+data_manager = DataManager()
+flight_searcher = FlightSearcher()
+tomorrow = datetime.now() + timedelta(days=1)
+six_months_from_today = datetime.now() + timedelta(days=(6 * 30))
+notifier = Notifier()
+
+def flight_list_helper(is_direct=True):
+    return retrieve_flight_list(flight_searcher.check_new_flights(
+        ORIGIN_CITY_CODE,
+        destination["iataCode"],
+        from_time=tomorrow,
+        to_time=six_months_from_today,
+        is_direct=is_direct
+    ))
+
+for destination in data_manager.get_destinations():
+    flight_list = flight_list_helper()
+
+    if flight_list is None:
+        flight_list = flight_list_helper(False)
+
+    cheapest_flight = retrieve_cheapest_flight(flight_list)
+
+    if float(cheapest_flight.price) < float(destination["lowestPrice"]):
+        notifier.notify(
+            destination["lowestPrice"],
+            cheapest_flight.price,
+            cheapest_flight.origin_airport,
+            cheapest_flight.destination_airport,
+            cheapest_flight.departure_date,
+            cheapest_flight.return_date,
+            cheapest_flight.number_of_stops
+        )
+    time.sleep(2)

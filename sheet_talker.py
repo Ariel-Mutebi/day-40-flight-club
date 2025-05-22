@@ -4,12 +4,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-class DataManager:
+# It talks to Sheety, so sheet-talker :)
+class SheetTalker:
     def __init__(self):
-        self.SHEETY_API_ENDPOINT = os.environ.get("SHEETY_API_ENDPOINT")
+        self.SHEETY_DESTINATIONS_ENDPOINT = os.environ.get("SHEETY_DESTINATIONS_ENDPOINT")
 
     def get_destinations(self):
-        request = requests.get(self.SHEETY_API_ENDPOINT)
+        request = requests.get(self.SHEETY_DESTINATIONS_ENDPOINT)
         request.raise_for_status()
         response = request.json()
         return response["prices"]

@@ -1,5 +1,5 @@
-class Notifier:
-        def notify(self, set_low_price, price, departure_airport, arrival_airport, outbound_date, inbound_date, number_of_stops):
+class Announcer:
+        def announce(self, set_low_price, price, departure_airport, arrival_airport, outbound_date, inbound_date, number_of_stops):
                 print(f"Flight deal for price lower than set low price of {set_low_price} found!")
                 print(f"Price: {price}")
                 print(f"Departure airport IATA code: {departure_airport}")

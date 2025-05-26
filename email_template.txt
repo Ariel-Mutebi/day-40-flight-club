@@ -1,0 +1,5 @@
+A flight from [DEPARTURE_AIRPORT] to [DESTINATION_AIRPORT] has been found at a price lower than  historical price of [HISTORICAL_PRICE]!
+Price: [PRICE]
+Outbound date: [OUTBOUND_DATE]
+Inbound date: [INBOUND_DATE]
+Number of stop-overs: [NUMBER_OF_STOPS]

@@ -32,6 +32,7 @@ for destination in sheet_talker.get_destinations():
 
     if float(cheapest_flight.price) < float(destination["lowestPrice"]):
         announcer.announce(
+            sheet_talker.get_users_emails(),
             destination["lowestPrice"],
             cheapest_flight.price,
             cheapest_flight.origin_airport,
